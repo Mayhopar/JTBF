@@ -1,51 +1,102 @@
 ---
+import Header from "../components/Navigation.astro";
+import { ViewTransitions } from 'astro:transitions';
+import '../fonts.css';
+
 interface Props {
 	title: string;
+	description?: string;
+	image?: string;
 }
 
-const { title } = Astro.props;
+const { title, description, image } = Astro.props;
 ---
 
 <!doctype html>
-<html lang="en">
+<html lang="en" class="font-['SuisseIntl']">
 	<head>
 		<meta charset="UTF-8" />
-		<meta name="description" content="Astro description" />
-		<meta name="viewport" content="width=device-width" />
-		<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
-		<meta name="generator" content={Astro.generator} />
 		<title>{title}</title>
+		<meta name="description" content={description} />
+		<meta name="keywords" content="design, ui, ux, b2b, b2c, saas">
+		<meta name="viewport" content="width=device-width" />
+		<link rel="icon" type="image/svg+xml" href="/favicon.jpg" />
+		<meta name="generator" content={Astro.generator} />
+		<meta property="og:image" content="{image}" />
+		<meta property="og:image:type" content="image/jpeg" />
+		<meta property="og:image:width" content="1200" />
+		<meta property="og:image:height" content="675" />
+		<meta property="og:image:alt" content="A website cover" />
+		<meta name="twitter:site" content="@haiku4real" />
+		<meta name="twitter:title" content={title} />
+		<meta name="twitter:description" content={description} />
+		<meta name="twitter:image" content={image} />
+		<ViewTransitions />
 	</head>
-	<body>
+	<body class="font-['SuisseIntl']">
+		<Header />
 		<slot />
+		
+		<script>
+			// Function to get a random element and its index
+			function getRandomElement<T>(arr: T[]): { element: T, index: number } {
+            const randomIndex = Math.floor(Math.random() * arr.length);
+            return { element: arr[randomIndex], index: randomIndex };
+        }
+
+        // Function to move a random second-level <li> element to the next top-level <li> element's nested <ol>
+        function moveRandomElement() {
+            // Select all top-level <li> elements
+            const topLevelItems = document.querySelectorAll('#canban > li');
+            if (topLevelItems.length > 0) {
+                // Convert NodeList to Array
+                const topLevelItemsArray = Array.from(topLevelItems);
+
+                // Select a random top-level <li> and save its index
+                const { element: randomTopLevelItem, index: topLevelIndex } = getRandomElement(topLevelItemsArray);
+                console.log(`Selected top-level <li> index: ${topLevelIndex}`);
+
+                // Select all second-level <li> elements within the chosen top-level <li>
+                const secondLevelItems = randomTopLevelItem.querySelectorAll('ol > li');
+                if (secondLevelItems.length > 0) {
+                    // Convert NodeList to Array
+                    const secondLevelItemsArray = Array.from(secondLevelItems);
+
+                    // Select a random second-level <li> and save its index
+                    const { element: randomSecondLevelItem, index: secondLevelIndex } = getRandomElement(secondLevelItemsArray);
+                    console.log(`Selected second-level <li> index: ${secondLevelIndex}`);
+
+                    // Log the text content of the random second-level <li>
+                    console.log((randomSecondLevelItem as HTMLElement).innerText);
+
+                    // Function to get the next column and move the element
+                    function getNextColumn(number: number): { answer: string } {
+                        const nextNumber = number + 1;
+                        if (nextNumber < topLevelItemsArray.length) {
+                            const nextColumn = topLevelItemsArray[nextNumber];
+                            nextColumn.querySelector('ol')?.appendChild(randomSecondLevelItem);
+                            return { answer: "Moved to next column" };
+                        } else if (nextNumber === topLevelItemsArray.length) {
+                            const nextColumn = topLevelItemsArray[0];
+                            nextColumn.querySelector('ol')?.appendChild(randomSecondLevelItem);
+                            return { answer: "Moved to first column" };
+                        }
+                        // Optionally, handle cases where nextNumber > topLevelItemsArray.length
+                        return { answer: "default" }; // or throw an error if this case should not happen
+                    }
+
+                    console.log(getNextColumn(topLevelIndex));
+
+                } else {
+                    console.log('No second-level <li> elements found.');
+                }
+            } else {
+                console.log('No top-level <li> elements found.');
+            }
+        }
+
+        // Set interval to call moveRandomElement every 2 seconds (2000 milliseconds)
+        setInterval(moveRandomElement, 2000);
+    </script>
 	</body>
 </html>
-<style is:global>
-	:root {
-		--accent: 136, 58, 234;
-		--accent-light: 224, 204, 250;
-		--accent-dark: 49, 10, 101;
-		--accent-gradient: linear-gradient(
-			45deg,
-			rgb(var(--accent)),
-			rgb(var(--accent-light)) 30%,
-			white 60%
-		);
-	}
-	html {
-		font-family: system-ui, sans-serif;
-		background: #13151a;
-		background-size: 224px;
-	}
-	code {
-		font-family:
-			Menlo,
-			Monaco,
-			Lucida Console,
-			Liberation Mono,
-			DejaVu Sans Mono,
-			Bitstream Vera Sans Mono,
-			Courier New,
-			monospace;
-	}
-</style>
