@@ -2,6 +2,7 @@
 import Header from "../components/Navigation.astro";
 import { ViewTransitions } from 'astro:transitions';
 import '../fonts.css';
+import '../style.css';
 
 interface Props {
 	title: string;
@@ -32,71 +33,167 @@ const { title, description, image } = Astro.props;
 		<meta name="twitter:description" content={description} />
 		<meta name="twitter:image" content={image} />
 		<ViewTransitions />
+
+		<style>
+			.removed-item {
+			  animation: removed-item-animation 0.5s ease-in-out forwards;
+			}
+		  
+			@keyframes removed-item-animation {
+			  0% {
+				opacity: 1;
+				transform: translateY(0);
+			  }
+			  100% {
+				opacity: 0;
+				transform: translateY(-320px); /* Adjust the value as needed */
+			  }
+			}
+
+			#col-1 {
+				padding: 30px;
+			}
+		</style>
 	</head>
 	<body class="font-['SuisseIntl']">
 		<Header />
 		<slot />
 		
 		<script>
-			// Function to get a random element and its index
-			function getRandomElement<T>(arr: T[]): { element: T, index: number } {
-            const randomIndex = Math.floor(Math.random() * arr.length);
-            return { element: arr[randomIndex], index: randomIndex };
-        }
+            document.addEventListener('DOMContentLoaded', () => {
+                const columnOne = document.getElementById("col-1") as HTMLElement | null;
+                const columnTwo = document.getElementById("col-2") as HTMLElement | null;
+                let card: Element | null = null;
+                let intervalId: number | null = null;
 
-        // Function to move a random second-level <li> element to the next top-level <li> element's nested <ol>
-        function moveRandomElement() {
-            // Select all top-level <li> elements
-            const topLevelItems = document.querySelectorAll('#canban > li');
-            if (topLevelItems.length > 0) {
-                // Convert NodeList to Array
-                const topLevelItemsArray = Array.from(topLevelItems);
-
-                // Select a random top-level <li> and save its index
-                const { element: randomTopLevelItem, index: topLevelIndex } = getRandomElement(topLevelItemsArray);
-                console.log(`Selected top-level <li> index: ${topLevelIndex}`);
-
-                // Select all second-level <li> elements within the chosen top-level <li>
-                const secondLevelItems = randomTopLevelItem.querySelectorAll('ol > li');
-                if (secondLevelItems.length > 0) {
-                    // Convert NodeList to Array
-                    const secondLevelItemsArray = Array.from(secondLevelItems);
-
-                    // Select a random second-level <li> and save its index
-                    const { element: randomSecondLevelItem, index: secondLevelIndex } = getRandomElement(secondLevelItemsArray);
-                    console.log(`Selected second-level <li> index: ${secondLevelIndex}`);
-
-                    // Log the text content of the random second-level <li>
-                    console.log((randomSecondLevelItem as HTMLElement).innerText);
-
-                    // Function to get the next column and move the element
-                    function getNextColumn(number: number): { answer: string } {
-                        const nextNumber = number + 1;
-                        if (nextNumber < topLevelItemsArray.length) {
-                            const nextColumn = topLevelItemsArray[nextNumber];
-                            nextColumn.querySelector('ol')?.appendChild(randomSecondLevelItem);
-                            return { answer: "Moved to next column" };
-                        } else if (nextNumber === topLevelItemsArray.length) {
-                            const nextColumn = topLevelItemsArray[0];
-                            nextColumn.querySelector('ol')?.appendChild(randomSecondLevelItem);
-                            return { answer: "Moved to first column" };
-                        }
-                        // Optionally, handle cases where nextNumber > topLevelItemsArray.length
-                        return { answer: "default" }; // or throw an error if this case should not happen
+                function moveCards() {
+                    if (columnOne) {
+                        card = columnOne.firstElementChild;
+                    } else {
+                        console.log("Element with ID 'col-1' not found.");
+                        return; // Exit the function if the element is not found
                     }
 
-                    console.log(getNextColumn(topLevelIndex));
+                    function removeCard(item: Element) {
+                        item.remove();
+                    }
 
-                } else {
-                    console.log('No second-level <li> elements found.');
+                    function addCard(item: Element) {
+                        if (columnTwo) {
+                            columnTwo.appendChild(item);
+                        }
+                    }
+
+                    function moveCardWithAnimation(item: Element) {
+                        item.classList.remove("resetTranslate");
+                        const animation = item.animate([
+                            { transform: 'translateX(0)' },
+                            { transform: `translateX(${(columnTwo?.getBoundingClientRect().left || 0) - (columnOne?.getBoundingClientRect().left || 0)}px)` }
+                        ], {
+                            duration: 800,
+                            easing: 'cubic-bezier(0.3, 1, 0.7, 1)',
+                            fill: 'forwards'
+                        });
+
+                        animation.onfinish = () => {
+                            removeCard(item);
+                            if (columnOne) {
+                                animateRemainingCards(columnOne);
+                            }
+                            addCard(item);
+                            item.classList.add("resetTranslate");
+                            if (intervalId === null) {
+                                intervalId = window.setTimeout(moveCards, 3000); // Call moveCards again after 3 seconds
+                            }
+                        };
+
+                        function animateRemainingCards(column: HTMLElement) {
+                            const cards = column.children;
+
+                            if (cards) {
+                                for (let i = 0; i < cards.length; i++) {
+                                    cards[i].animate([
+                                        { transform: 'translateY(90px)' },
+                                        { transform: 'translateY(0px)' }
+                                    ], {
+                                        duration: 500,
+                                        easing: 'cubic-bezier(0.3, 1, 0.7, 1)',
+                                        fill: 'forwards'
+                                    });
+                                }
+                            }
+
+                            if (cards[3]) {
+                                cards[3].animate([
+                                    { opacity: 0 },
+                                    { opacity: 1 }
+                                ], {
+                                    duration: 500,
+                                    easing: 'cubic-bezier(0.3, 1, 0.7, 1)',
+                                    fill: 'forwards'
+                                });
+                            }
+                        }
+                    }
+
+                    function vanishCard() {
+                        if (card) {
+                            card.animate([
+                                { opacity: 1 },
+                                { opacity: 0 }
+                            ], {
+                                duration: 500,
+                                easing: 'cubic-bezier(0.3, 1, 0.7, 1)',
+                                fill: 'forwards'
+                            });
+                        }
+                    }
+
+                    function returnCard(item: Element) {
+                        removeCard(item);
+                        if (columnOne) {
+                            columnOne.appendChild(item);
+                        }
+                        item.classList.remove("resetTranslate");
+                    }
+
+                    if (card) {
+                        moveCardWithAnimation(card);
+                    }
+
+                    if (intervalId === null) {
+                        intervalId = window.setTimeout(() => {
+                            vanishCard();
+                            window.setTimeout(() => {
+                                if (card) {
+                                    returnCard(card);
+                                }
+                            }, 1550);
+                        }, 1550);
+                    }
                 }
-            } else {
-                console.log('No top-level <li> elements found.');
-            }
-        }
 
-        // Set interval to call moveRandomElement every 2 seconds (2000 milliseconds)
-        setInterval(moveRandomElement, 2000);
-    </script>
+                function handleVisibilityChange() {
+                    if (document.hidden) {
+                        if (intervalId !== null) {
+                            window.clearTimeout(intervalId);
+                            intervalId = null;
+                        }
+                    } else {
+                        moveCards();
+                    }
+                }
+
+                document.addEventListener("visibilitychange", handleVisibilityChange);
+
+                if (!document.hidden) {
+                    moveCards(); // Start the animation loop if the page is visible
+                }
+            });
+
+        </script>
+        
+        
+
 	</body>
 </html>

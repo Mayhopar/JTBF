@@ -1,13 +1,16 @@
 ---
 import Layout from '../layouts/Layout.astro';
 import Navigation from '../components/Navigation.astro';
+import '../fonts.css';
+import '../style.css';
 ---
 
 <Layout title="Welcome to Astro.">
 	<main>
-		<div class="overflow-hidden
+		<div class="columns-2
+		gap-8
+		overflow-hidden
 		flex
-		relative
 		flex-row
 		w-screen
 		h-screen
@@ -15,248 +18,44 @@ import Navigation from '../components/Navigation.astro';
 		px-10
 		py-8
 		font-['SuisseIntl']">
-			<div class="absolute
-			left-10
-			bottom-6
-			font-sans
+			<div class="font-sans
 			flex
 			flex-col
-			justify-end	
+			justify-center
 			m-w-[50%]
 			h-full"
 			style="width: calc(50% - 40px);">
-				<h1 class="font-semibold
-				tracking-tight" 
+				<h1 class="font-normal
+				tracking-tight
+				leading-[110%]
+				text-center" 
 				style="font-size: calc(3.9vw - 4.3px);">
-					Get Your <span class="italic">Job Search</span> Together
+					Get Your<br><span class="italic">Job Search</span><br>Together
 				</h1>
-				<h4 class="mt-1" style="font-size: calc(1.94vw - 4px);">
-					Track your applications progress.</br>Access CVs and cover letters when you need them.
-				</h4>
-				<div class="columns-2
-				w-full"
+				<div class="flex
+				justify-center"
 				style="margin-top: 2vw;">
 					<a href="" class="flex
 					justify-center
 					items-center
-					w-full
 					bg-neutral-900
 					text-neutral-50
 					rounded-[0.25em]"
-					style="height: 4vw;
-					font-size: 1.2vw;">
-						Sign Up
-					</a>
-					<a href="" class="flex
-					justify-center
-					items-center
-					w-full
-					bg-amber-400
-					text-neutral-900
-					rounded-[0.25em]"
-					style="height: 4vw;
-					font-size: 1.2vw;">
-						Log In
+					style="height: 3.5vw;
+					font-size: 1.2vw;
+					padding: 0 1.2vw">
+						Get Extension
 					</a>
 				</div>
 			</div>
 
-			<ol id="canban" class="relative
+			<ol id="canban" class="
 			flex
 			flex-row
 			gap-4
-			w-full">
-				<li class="absolute"
-				style="width: calc(25vw - 32px);
-				right: calc(100vw - 64px)">
-					<h2 class="bg-amber-500
-					text-neutral-50
-					px-3
-					py-1
-					rounded">
-						Applied
-					</h2>
-					<div>
-						<ol class="[&>*]:bg-white
-							[&>*]:mt-2
-							[&>*]:px-3
-							[&>*]:py-2
-							[&>*]:rounded
-							[&>*]:border
-							[&>*]:border-neutral-200">
-							<li class="">
-								<div>
-									<p class="text-sm
-									font-semibold
-									text-emerald-500">
-										Updated today
-									</p>
-								</div>
-								<div>
-									<p class="text-base
-									font-semibold
-									text-neutral-700">
-										Software engineer @ Google
-									</p>
-								</div>
-								<div>
-									<p class="text-sm
-									text-neutral-400">
-										Seattle, WA + 2 More · €156K - €234K
-									</p>
-								</div>
-							</li>
-							<li>
-								<div>
-									<p class="text-sm
-									font-semibold
-									text-emerald-500">
-										Updated today
-									</p>
-								</div>
-								<div>
-									<p class="text-base
-									font-semibold
-									text-neutral-700">
-										Software engineer @ Google
-									</p>
-								</div>
-								<div>
-									<p class="text-sm
-									text-neutral-400">
-										Seattle, WA + 2 More · €156K - €234K
-									</p>
-								</div>
-							</li>
-						</ol>
-					</div>
-				</li>
-				<li class="flex-1">
-					<h2 class="bg-neutral-900
-					text-neutral-50
-					px-3
-					py-1
-					rounded">
-						Applied
-					</h2>
-					<div>
-						<ol class="[&>*]:bg-white
-							[&>*]:mt-2
-							[&>*]:px-3
-							[&>*]:py-2
-							[&>*]:rounded
-							[&>*]:border
-							[&>*]:border-neutral-200">
-							<li class="">
-								<div>
-									<p class="text-sm
-									font-semibold
-									text-emerald-500">
-										Updated today
-									</p>
-								</div>
-								<div>
-									<p class="text-base
-									font-semibold
-									text-neutral-700">
-										Software engineer @ Google
-									</p>
-								</div>
-								<div>
-									<p class="text-sm
-									text-neutral-400">
-										Seattle, WA + 2 More · €156K - €234K
-									</p>
-								</div>
-							</li>
-							<li>
-								<div>
-									<p class="text-sm
-									font-semibold
-									text-emerald-500">
-										Updated today
-									</p>
-								</div>
-								<div>
-									<p class="text-base
-									font-semibold
-									text-neutral-700">
-										Software engineer @ Google
-									</p>
-								</div>
-								<div>
-									<p class="text-sm
-									text-neutral-400">
-										Seattle, WA + 2 More · €156K - €234K
-									</p>
-								</div>
-							</li>
-						</ol>
-					</div>
-				</li>
-				<li class="flex-1">
-					<h2 class="bg-neutral-900
-					text-neutral-50
-					px-3
-					py-1
-					rounded">
-						Screening
-					</h2>
-					<div>
-						<ol class="[&>*]:bg-white
-							[&>*]:mt-2
-							[&>*]:px-3
-							[&>*]:py-2
-							[&>*]:rounded
-							[&>*]:border
-							[&>*]:border-neutral-200">
-							<li class="">
-								<div>
-									<p class="text-sm
-									font-semibold
-									text-emerald-500">
-										Updated today
-									</p>
-								</div>
-								<div>
-									<p class="text-base
-									font-semibold
-									text-neutral-700">
-										Software engineer @ Google
-									</p>
-								</div>
-								<div>
-									<p class="text-sm
-									text-neutral-400">
-										Seattle, WA + 2 More · €156K - €234K
-									</p>
-								</div>
-							</li>
-							<li>
-								<div>
-									<p class="text-sm
-									font-semibold
-									text-emerald-500">
-										Updated today
-									</p>
-								</div>
-								<div>
-									<p class="text-base
-									font-semibold
-									text-neutral-700">
-										Software engineer @ Google
-									</p>
-								</div>
-								<div>
-									<p class="text-sm
-									text-neutral-400">
-										Seattle, WA + 2 More · €156K - €234K
-									</p>
-								</div>
-							</li>
-						</ol>
-					</div>
-				</li>
+			w-full
+			self-center
+			h-[400px]">
 				<li class="flex-1">
 					<h2 class="bg-neutral-900
 					text-neutral-50
@@ -266,7 +65,7 @@ import Navigation from '../components/Navigation.astro';
 						Interviewing
 					</h2>
 					<div>
-						<ol class="[&>*]:bg-white
+						<ol id="col-1" class="[&>*]:bg-white
 							[&>*]:mt-2
 							[&>*]:px-3
 							[&>*]:py-2
@@ -285,7 +84,7 @@ import Navigation from '../components/Navigation.astro';
 									<p class="text-base
 									font-semibold
 									text-neutral-700">
-										Software engineer @ Google
+										1. Software engineer @ Google
 									</p>
 								</div>
 								<div>
@@ -295,7 +94,7 @@ import Navigation from '../components/Navigation.astro';
 									</p>
 								</div>
 							</li>
-							<li>
+							<li class="">
 								<div>
 									<p class="text-sm
 									font-semibold
@@ -307,7 +106,73 @@ import Navigation from '../components/Navigation.astro';
 									<p class="text-base
 									font-semibold
 									text-neutral-700">
-										Software engineer @ Google
+										2. Software engineer @ Google
+									</p>
+								</div>
+								<div>
+									<p class="text-sm
+									text-neutral-400">
+										Seattle, WA + 2 More · €156K - €234K
+									</p>
+								</div>
+							</li>
+							<li class="">
+								<div>
+									<p class="text-sm
+									font-semibold
+									text-emerald-500">
+										Updated today
+									</p>
+								</div>
+								<div>
+									<p class="text-base
+									font-semibold
+									text-neutral-700">
+										3. Software engineer @ Google
+									</p>
+								</div>
+								<div>
+									<p class="text-sm
+									text-neutral-400">
+										Seattle, WA + 2 More · €156K - €234K
+									</p>
+								</div>
+							</li>
+							<li class="">
+								<div>
+									<p class="text-sm
+									font-semibold
+									text-emerald-500">
+										Updated today
+									</p>
+								</div>
+								<div>
+									<p class="text-base
+									font-semibold
+									text-neutral-700">
+										4. Software engineer @ Google
+									</p>
+								</div>
+								<div>
+									<p class="text-sm
+									text-neutral-400">
+										Seattle, WA + 2 More · €156K - €234K
+									</p>
+								</div>
+							</li>
+							<li class="">
+								<div>
+									<p class="text-sm
+									font-semibold
+									text-emerald-500">
+										Updated today
+									</p>
+								</div>
+								<div>
+									<p class="text-base
+									font-semibold
+									text-neutral-700">
+										5. Software engineer @ Google
 									</p>
 								</div>
 								<div>
@@ -329,125 +194,18 @@ import Navigation from '../components/Navigation.astro';
 						Offer
 					</h2>
 					<div>
-						<ol class="[&>*]:bg-white
+						<ol id="col-2" class="[&>*]:bg-white
 							[&>*]:mt-2
 							[&>*]:px-3
 							[&>*]:py-2
 							[&>*]:rounded
 							[&>*]:border
 							[&>*]:border-neutral-200">
-							<li class="">
-								<div>
-									<p class="text-sm
-									font-semibold
-									text-emerald-500">
-										Updated today
-									</p>
-								</div>
-								<div>
-									<p class="text-base
-									font-semibold
-									text-neutral-700">
-										Software engineer @ Google
-									</p>
-								</div>
-								<div>
-									<p class="text-sm
-									text-neutral-400">
-										Seattle, WA + 2 More · €156K - €234K
-									</p>
-								</div>
-							</li>
-							<li>
-								<div>
-									<p class="text-sm
-									font-semibold
-									text-emerald-500">
-										Updated today
-									</p>
-								</div>
-								<div>
-									<p class="text-base
-									font-semibold
-									text-neutral-700">
-										Software engineer @ Google
-									</p>
-								</div>
-								<div>
-									<p class="text-sm
-									text-neutral-400">
-										Seattle, WA + 2 More · €156K - €234K
-									</p>
-								</div>
-							</li>
+							
 						</ol>
 					</div>
 				</li>
-				<li class="absolute"
-				style="width: calc(25vw - 32px);
-				right: calc((25vw - 16px)*-1)">
-					<h2 class="bg-amber-500
-					text-neutral-50
-					px-3
-					py-1
-					rounded">
-						Rejected
-					</h2>
-					<div>
-						<ol class="[&>*]:bg-white
-							[&>*]:mt-2
-							[&>*]:px-3
-							[&>*]:py-2
-							[&>*]:rounded
-							[&>*]:border
-							[&>*]:border-neutral-200">
-							<li class="">
-								<div>
-									<p class="text-sm
-									font-semibold
-									text-emerald-500">
-										Updated today
-									</p>
-								</div>
-								<div>
-									<p class="text-base
-									font-semibold
-									text-neutral-700">
-										Software engineer @ Google
-									</p>
-								</div>
-								<div>
-									<p class="text-sm
-									text-neutral-400">
-										Seattle, WA + 2 More · €156K - €234K
-									</p>
-								</div>
-							</li>
-							<li>
-								<div>
-									<p class="text-sm
-									font-semibold
-									text-emerald-500">
-										Updated today
-									</p>
-								</div>
-								<div>
-									<p class="text-base
-									font-semibold
-									text-neutral-700">
-										Software engineer @ Google
-									</p>
-								</div>
-								<div>
-									<p class="text-sm
-									text-neutral-400">
-										Seattle, WA + 2 More · €156K - €234K
-									</p>
-								</div>
-							</li>
-						</ol>
-					</div>
-				</li>
+				
 			</ol>
 		</div>
 	</main>

@@ -1,0 +1,22 @@
+
+#col-1 li:nth-child(4),
+#col-1 li:nth-child(5) {
+    opacity: 0;
+}
+
+.resetTranslate {
+    transform: none !important;
+}
+
+.resetTransition {
+    transition: none !important;
+}
+
+li > .defaultTranslate {
+    transform: translateX(0px) !important;
+}
+
+.moveCardUp {
+    transition: transform 0.25s cubic-bezier(0.3, 1, 0.7, 1);
+    transform: translate(0px, -90px) !important;
+}
