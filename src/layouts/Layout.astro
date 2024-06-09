@@ -64,7 +64,6 @@ const { title, description, image } = Astro.props;
                 const columnOne = document.getElementById("col-1") as HTMLElement | null;
                 const columnTwo = document.getElementById("col-2") as HTMLElement | null;
                 let card: Element | null = null;
-                let intervalId: number | null = null;
 
                 function moveCards() {
                     if (columnOne) {
@@ -102,9 +101,7 @@ const { title, description, image } = Astro.props;
                             }
                             addCard(item);
                             item.classList.add("resetTranslate");
-                            if (intervalId === null) {
-                                intervalId = window.setTimeout(moveCards, 3000); // Call moveCards again after 3 seconds
-                            }
+                            setTimeout(moveCards, 3000); // Call moveCards again after 3 seconds
                         };
 
                         function animateRemainingCards(column: HTMLElement) {
@@ -161,36 +158,18 @@ const { title, description, image } = Astro.props;
                         moveCardWithAnimation(card);
                     }
 
-                    if (intervalId === null) {
-                        intervalId = window.setTimeout(() => {
-                            vanishCard();
-                            window.setTimeout(() => {
-                                if (card) {
-                                    returnCard(card);
-                                }
-                            }, 1550);
+                    setTimeout(() => {
+                        vanishCard();
+                        setTimeout(() => {
+                            if (card) {
+                                returnCard(card);
+                            }
                         }, 1550);
-                    }
+                    }, 1550);
                 }
 
-                function handleVisibilityChange() {
-                    if (document.hidden) {
-                        if (intervalId !== null) {
-                            window.clearTimeout(intervalId);
-                            intervalId = null;
-                        }
-                    } else {
-                        moveCards();
-                    }
-                }
-
-                document.addEventListener("visibilitychange", handleVisibilityChange);
-
-                if (!document.hidden) {
-                    moveCards(); // Start the animation loop if the page is visible
-                }
+                moveCards(); // Start the animation loop
             });
-
         </script>
         
         
