@@ -17,6 +17,17 @@ li > .defaultTranslate {
 }
 
 .moveCardUp {
-    transition: transform 0.25s cubic-bezier(0.3, 1, 0.7, 1);
-    transform: translate(0px, -90px) !important;
+    animation-duration: 1s !important;
+    animation-name: moveUp !important;
+    animation-timing-function: cubic-bezier(0.3, 1, 0.7, 1) !important;
+}
+
+@keyframes moveUp {
+    from {
+        transform: translateY(0px) !important;
+    }
+    
+    to {
+        transform: translateY(-90px) !important;
+    }
 }
